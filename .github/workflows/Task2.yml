@@ -36,7 +36,12 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no ${{ env.AZURE_SSH_USERNAME }}@${{ env.AZURE_VM_IP }} << 'EOF'
             sudo apt-get update
-            sudo apt-get install -y docker-compose-plugin
+            
+            # Verificar si docker-compose está instalado antes de instalarlo
+            if ! command -v docker compose &> /dev/null; then
+              sudo apt-get install -y docker-compose-plugin
+            fi
+            
             docker pull ${{ env.BACKEND_IMAGE }}:latest
             docker pull ${{ env.FRONTEND_IMAGE }}:latest
             cd /home/${{ env.AZURE_SSH_USERNAME }}
