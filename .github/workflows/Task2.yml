@@ -1,5 +1,5 @@
 
-name: CI/CD Pipeline
+name: CI/CD Pipeline Connect MV and Deploy
 
 on: workflow_dispatch
 
@@ -10,7 +10,7 @@ env:
   FRONTEND_IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/basic3tier-ui
   VERSION: 1.0.0-${{ github.sha }}
   AZURE_SSH_USERNAME: ${{ secrets.AZURE_SSH_USERNAME }}
-  AZURE_VM_IP: {{ secrets.AZURE_VM_IP }}
+  AZURE_VM_IP: ${{ secrets.AZURE_VM_IP }}
   AZURE_SSH_PRIVATE_KEY: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
 
 jobs:
