@@ -49,3 +49,14 @@ jobs:
             docker-compose down -v
             docker-compose up -d
           EOF
+
+    # 🔹 5. Verificar que la aplicación está corriendo
+    #  - name: Verify Application is Running
+    #    uses: appleboy/ssh-action@master
+    #    with:
+    #      host: ${{ secrets.AZURE_VM_IP }}
+    #      username: ${{ secrets.AZURE_VM_USER }}
+    #      key: ${{ secrets.AZURE_SSH_PRIVATE_KEY }}
+    #      script: |
+    #        docker ps
+    #        curl -I http://localhost

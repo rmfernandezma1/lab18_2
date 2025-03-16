@@ -2,7 +2,9 @@ version: '3.8'
 
 services:
   frontend:
-    image: rmfernandezma1/basic3tier-ui:latest
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
     ports:
       - "3000:80"
     depends_on:
@@ -11,7 +13,9 @@ services:
       - app-network
 
   backend:
-    image: rmfernandezma1/basic3tier-api:latest
+    build:
+      context: ./api
+      dockerfile: Dockerfile
     ports:
       - "5001:80"
     environment:
@@ -33,7 +37,7 @@ services:
       - POSTGRES_DB=basic3tier
     volumes:
       - postgres_data:/var/lib/postgresql/data
-      #- ./api/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
+      - ./api/pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf
     networks:
       - app-network
     healthcheck:
