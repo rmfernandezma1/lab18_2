@@ -46,6 +46,11 @@ jobs:
         cd api/Basic3TierAPI
         dotnet test --no-build --verbosity normal
 
+    - name: Run Sonarube for frontend
+      uses: SonarSource/sonarqube-scan-action@v4
+      env:
+         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
 
   build-and-push-docker:
@@ -90,22 +95,15 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
-    - name: Run Trivy vulnerability scanner
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: ${{ env.BACKEND_IMAGE }}:${{ env.VERSION }}
-        format: 'table'
-        exit-code: '0'
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
+       
+    #- name: Instalar SonarScanner para .NET
+    #  run: |
+    #    dotnet tool install --global dotnet-sonarscanner
+    #    echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
-    - name: Run Trivy vulnerability scanner for frontend
-      uses: aquasecurity/trivy-action@master
-      with:
-        image-ref: ${{ env.FRONTEND_IMAGE }}:${{ env.VERSION }}
-        format: 'table'
-        exit-code: '0'
-        ignore-unfixed: true
-        vuln-type: 'os,library'
-        severity: 'CRITICAL,HIGH'
+    #- name: Ejecutar análisis SonarQube
+    #  run: |
+     #   dotnet sonarscanner begin /~/workraquel/"" /d:sonar.host.url="http://${{ secrets.SONAR_HOST_URL }}" /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+      #  dotnet build api/Basic3TierAPI/Basic3TierAPI.sln --configuration Release
+       # dotnet sonarscanner end /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}"
+    
