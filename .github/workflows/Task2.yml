@@ -38,7 +38,7 @@ jobs:
             sudo apt-get update
             
             # Verificar si docker-compose está instalado antes de instalarlo
-            if ! command -v docker compose &> /dev/null; then
+            if ! command -v docker-compose &> /dev/null; then
               sudo apt install -y docker-compose
 
             fi
