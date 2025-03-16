@@ -1,10 +1,6 @@
 name: CI/CD Pipeline
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+on: workflow_dispatch
 
 env:
   DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -110,3 +106,5 @@ jobs:
       #  dotnet build api/Basic3TierAPI/Basic3TierAPI.sln --configuration Release
        # dotnet sonarscanner end /d:sonar.token="${{ secrets.SONARQUBE_TOKEN }}"
     
+
+  
